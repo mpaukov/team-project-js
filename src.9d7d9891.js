@@ -7,4 +7,4 @@ const s=document.querySelector(".js-scroll");function l(l){l.preventDefault(),wi
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/components/header"),require("./js/components/scroll");
 },{"./sass/main.scss":"clu1","./js/components/header":"NNYM","./js/components/scroll":"r7Tq"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js/src.3c1481de.js.map
+//# sourceMappingURL=/team-project-js/src.9d7d9891.js.map
