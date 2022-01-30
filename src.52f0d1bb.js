@@ -103,4 +103,4 @@ var t=arguments[3],n="Expected a function",e=NaN,i="[object Symbol]",r=/^\s+|\s+
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/components/header"),require("./js/components/switcher"),require("./js/components/scroll"),require("./js/components/fetchApi"),require("./js/components/gallery"),require("./js/components/pagination"),require("./js/components/modal");
 },{"./sass/main.scss":"clu1","./js/components/header":"NNYM","./js/components/switcher":"bw8R","./js/components/scroll":"r7Tq","./js/components/fetchApi":"CwY4","./js/components/gallery":"QUdn","./js/components/pagination":"H1oe","./js/components/modal":"fSkc"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js/src.c7abadf0.js.map
+//# sourceMappingURL=/team-project-js/src.52f0d1bb.js.map
