@@ -138,4 +138,4 @@ const e={footerLink:document.querySelector(".footer__link"),closeModalBtn:docume
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/components/header"),require("./js/components/switcher"),require("./js/components/scroll"),require("./js/components/fetchApi"),require("./js/components/gallery"),require("./js/components/pagination"),require("./js/components/modal"),require("./js/components/teaser"),require("./js/components/team-modal"),require("./js/components/library"),require("./js/components/home"),require("./js/components/filterBtn");
 },{"./sass/main.scss":"clu1","./js/components/header":"NNYM","./js/components/switcher":"bw8R","./js/components/scroll":"r7Tq","./js/components/fetchApi":"CwY4","./js/components/gallery":"QUdn","./js/components/pagination":"H1oe","./js/components/modal":"fSkc","./js/components/teaser":"EIKK","./js/components/team-modal":"Cw5H","./js/components/library":"wZ4W","./js/components/home":"wBjs","./js/components/filterBtn":"fmEK"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js/src.9f0b631b.js.map
+//# sourceMappingURL=/team-project-js/src.b42cbab9.js.map
