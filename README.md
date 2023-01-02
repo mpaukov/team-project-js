@@ -1,10 +1,10 @@
 # MOVIE GALLERY
 
-My fork. This project was implemented as part of a JavaScript team project.
+My fork.<br><br> This project was implemented as part of a JavaScript team project.<br><br>
 
 My role in the project was the implementation of the Header (HTML, CSS, JS, responsive/adaptive
 design). Button scroll up, "viewed," and "queue," working with local storage, genres in the card,
-and the modal window, and implementation of teasers view.
+and the modal window, and implementation of teasers view. <br><br>
 
 # Contributors
 
