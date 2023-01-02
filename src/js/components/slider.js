@@ -40,8 +40,8 @@ async function sliderMarkup() {
       }
     })
     .join('');
-  console.log('sliderMarkup до', indexOfallUl);
-  console.log('sliderOptions.perView до', sliderOptions.perView);
+  // console.log('sliderMarkup до', indexOfallUl);
+  // console.log('sliderOptions.perView до', sliderOptions.perView);
 
   sliderList.insertAdjacentHTML('beforeend', sliderMarkup);
   // if (indexOfallUl <= sliderOptions.perView) {
@@ -61,23 +61,23 @@ async function onLoadMainPageShowSlider() {
     return;
   }
   await fetchTrandingMovieForSlider();
-  console.log('options.pageNumber', options.pageNumber);
-  console.log('options.listofFilmforSlider', options.listofFilmforSlider);
+  // console.log('options.pageNumber', options.pageNumber);
+  // console.log('options.listofFilmforSlider', options.listofFilmforSlider);
   await sliderMarkup();
   onClickSlide();
 }
 
 function onClickSlide() {
   const listOfSlides = document.querySelectorAll('.glide__slide');
-  console.log('listOfSlides', listOfSlides);
-  console.dir(listOfSlides);
+  // console.log('listOfSlides', listOfSlides);
+  // console.dir(listOfSlides);
   listOfSlides.forEach(slide =>
     slide.addEventListener('click', async () => {
       const sliderFilm = options.listofFilmforSlider.find(
         trandingFilm => trandingFilm.id == slide.dataset.idx,
       );
-      console.log(sliderFilm);
-      console.log(slide.dataset.idx);
+      // console.log(sliderFilm);
+      // console.log(slide.dataset.idx);
       //=====================================================
       const modal = document.querySelector('[data-modal]');
       const watchedArray = JSON.parse(localStorage.getItem('watched'));
@@ -90,8 +90,8 @@ function onClickSlide() {
       sliderModal(sliderFilm);
       // event.preventDefault()
       modalCloseBtn.addEventListener('click', onClickCloseModal);
-      console.log(event.currentTarget);
-      console.dir(event.currentTarget);
+      // console.log(event.currentTarget);
+      // console.dir(event.currentTarget);
 
       modal.classList.toggle('visually-hidden');
 
@@ -114,7 +114,7 @@ function onClickSlide() {
         }
         const indexWatchedMovieOnLS = watchedArray.results.findIndex(movieWatched => {
           if (movieWatched.id === sliderFilm.id) {
-            console.log('renderFromLibrary estb');
+            // console.log('renderFromLibrary estb');
             modalButtonWatched.textContent = 'DELETE FROM WATCHED';
             modalButtonQueue.textContent = 'ADD TO WATCHED';
             modalButtonWatched.classList.add('cheked');
@@ -130,7 +130,7 @@ function onClickSlide() {
         }
         const indexQueueMovieOnLS = queueArray.results.findIndex(movieQueue => {
           if (movieQueue.id === sliderFilm.id) {
-            console.log('renderFromLibrary estb');
+            // console.log('renderFromLibrary estb');
             modalButtonQueue.textContent = 'DELETE FROM QUEUE';
             modalButtonWatched.textContent = 'ADD TO WATCHED';
             modalButtonQueue.classList.add('cheked');
@@ -145,8 +145,8 @@ function onClickSlide() {
         const watchedIdx = renderFromLibraryWatched();
         const queueIdx = renderFromLibraryQueue();
         const lsKey = localStorage.getItem('isActive');
-        console.log('watchedIdx', watchedIdx);
-        console.log('queueIdx', queueIdx);
+        // console.log('watchedIdx', watchedIdx);
+        // console.log('queueIdx', queueIdx);
 
         if (e.currentTarget === modalButtonWatched) {
           if (watchedIdx !== -1 && watchedIdx !== undefined) {
@@ -154,9 +154,9 @@ function onClickSlide() {
             modalButtonWatched.textContent = 'ADD TO WATCHED';
             modalButtonWatched.classList.remove('cheked');
             deleteFromWatchW(sliderFilm);
-            console.log('удалили Wtched', watchedArray.results);
+            // console.log('удалили Wtched', watchedArray.results);
             localStorage.setItem('watched', JSON.stringify(watchedArray));
-            console.log(lsKey);
+            // console.log(lsKey);
 
             if (lsKey === 'watched') {
               markup(watchedArray);
@@ -171,16 +171,16 @@ function onClickSlide() {
             modalButtonQueue.textContent = 'ADD TO QUEUE';
             modalButtonQueue.classList.remove('cheked');
             deleteFromWatchQ(sliderFilm);
-            console.log('удалили Queue', queueArray.results);
+            // console.log('удалили Queue', queueArray.results);
             localStorage.setItem('queue', JSON.stringify(queueArray));
-            console.log(lsKey);
+            // console.log(lsKey);
           }
           modalButtonWatched.textContent = 'DELETE FROM WATCHED';
           modalButtonWatched.classList.add('cheked');
-          console.log('watchedIdx', watchedIdx);
-          console.log('мы пушим Watched');
+          // console.log('watchedIdx', watchedIdx);
+          // console.log('мы пушим Watched');
           watchedArray.results.push(sliderFilm);
-          console.log('watchedArray.results', watchedArray.results);
+          // console.log('watchedArray.results', watchedArray.results);
           localStorage.setItem('watched', JSON.stringify(watchedArray));
           if (lsKey === 'watched') {
             markup(watchedArray);
@@ -194,9 +194,9 @@ function onClickSlide() {
             modalButtonQueue.textContent = 'ADD TO QUEUE';
             modalButtonQueue.classList.remove('cheked');
             deleteFromWatchQ(sliderFilm);
-            console.log('удалили Queue', queueArray.results);
+            // console.log('удалили Queue', queueArray.results);
             localStorage.setItem('queue', JSON.stringify(queueArray));
-            console.log(lsKey);
+            // console.log(lsKey);
             if (lsKey === 'queue') {
               markup(queueArray);
             }
@@ -208,19 +208,19 @@ function onClickSlide() {
 
           modalButtonQueue.textContent = 'DELETE FROM QUEUE';
           modalButtonQueue.classList.add('cheked');
-          console.log('queueIdx ', queueIdx);
-          console.log('мы пушим Queue');
+          // console.log('queueIdx ', queueIdx);
+          // console.log('мы пушим Queue');
           queueArray.results.push(sliderFilm);
-          console.log('queueArray.results', queueArray.results);
+          // console.log('queueArray.results', queueArray.results);
           localStorage.setItem('queue', JSON.stringify(queueArray));
           if (watchedIdx !== -1 && watchedIdx !== undefined) {
             // console.log('не пушим', www);
             modalButtonWatched.textContent = 'ADD TO WATCHED';
             modalButtonWatched.classList.remove('cheked');
             deleteFromWatchW(sliderFilm);
-            console.log('удалили Wtched', watchedArray.results);
+            // console.log('удалили Wtched', watchedArray.results);
             localStorage.setItem('watched', JSON.stringify(watchedArray));
-            console.log(lsKey);
+            // console.log(lsKey);
           }
 
           if (lsKey === 'queue') {
@@ -242,7 +242,7 @@ function onClickSlide() {
           // console.log(currentFilm.id)
           if (elem.id === sliderFilm.id) {
             const idx = watchedArray.results.indexOf(elem);
-            console.log(idx);
+            // console.log(idx);
             watchedArray.results.splice(idx, 1);
             return;
           }
@@ -254,7 +254,7 @@ function onClickSlide() {
           // console.log(currentFilm.id)
           if (elem.id === sliderFilm.id) {
             const idx = queueArray.results.indexOf(elem);
-            console.log(idx);
+            // console.log(idx);
             queueArray.results.splice(idx, 1);
             return;
           }
@@ -275,7 +275,7 @@ function onClickSlide() {
         if (event.key === 'Escape') {
           onClickCloseModal();
         }
-        console.log(event.key);
+        // console.log(event.key);
       }
 
       function onClickBacrdropModalClose(e) {

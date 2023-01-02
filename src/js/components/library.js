@@ -27,16 +27,15 @@ function onLibraryLinkClick(e) {
     hideErrorText();
 
     // refs.endCollectionText.classList.add('visually-hidden');
-    refs.filterEl.classList.add('hidden')
-    refs.slider.classList.add('visually-hidden')
-    
+    refs.filterEl.classList.add('hidden');
+    refs.slider.classList.add('visually-hidden');
   }
 }
 let data = {
   page: 1,
   results: [],
 };
-console.log(data.results);
+// console.log(data.results);
 let queueKey;
 let watchedKey;
 let isActiveKey;

@@ -1,4 +1,11 @@
-import { fetchPhoto, fetchGenres, discoverGenres, fetchTrandingMovie,fetchTrandingMovieForSlider,fetchPhotoTest } from './fetchApi';
+import {
+  fetchPhoto,
+  fetchGenres,
+  discoverGenres,
+  fetchTrandingMovie,
+  fetchTrandingMovieForSlider,
+  fetchPhotoTest,
+} from './fetchApi';
 
 import {
   markupPages,
@@ -34,10 +41,9 @@ import { showErrorText, hideErrorText } from './errorText';
 import { hidePagination, showPagination } from './hidePagination';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { sliderMarkup,onLoadMainPageShowSlider} from './slider';
-import {showFetchLoader,hideFetchLoader} from './fetchLoader'
-import folder from '../../images/placeholder.bmp'
-
+import { sliderMarkup, onLoadMainPageShowSlider } from './slider';
+import { showFetchLoader, hideFetchLoader } from './fetchLoader';
+import folder from '../../images/placeholder.bmp';
 
 export {
   currentFetch,
@@ -49,7 +55,7 @@ export {
   toggleGenres,
   removeAllChekedGenres,
   ratingAddIshidden,
-  posterFolder
+  posterFolder,
 };
 const throttle = require('lodash.throttle');
 
@@ -78,7 +84,6 @@ let currentFetchTest = 'tranding';
 
 genresMarkup();
 
-
 const formInput = refs.form.elements.query;
 
 refs.form.addEventListener('submit', checkFetchLink);
@@ -106,12 +111,9 @@ if (!localStorage.getItem('queue')) {
 onLoadTranding();
 
 addTestPaginationListeners();
-onLoadMainPageShowSlider()
-
-
+onLoadMainPageShowSlider();
 
 async function checkFetchLink(e) {
-  
   if (e.target === refs.genres) {
     return;
   }
@@ -122,46 +124,43 @@ async function checkFetchLink(e) {
   refs.gallery.innerHTML = '';
   refs.pages.innerHTML = '';
   // options.pageNumber = 1;
-  
+
   try {
     // toggleTrands(e.target.id);
     // ==== chech input ====
-    await showFetchLoader()
+    await showFetchLoader();
     if (e.currentTarget === refs.form) {
       if (formInput.value.trim() === '') {
-        console.log('options.pageNumber',options.pageNumber);
-        console.log('options.pageNumberTest',options.pageNumberTest);
-        options.pageNumber = options.pageNumberTest
-        console.log(options.genresId);
-        console.log('после options.pageNumber',options.pageNumber);
-        console.log('после options.pageNumberTest',options.pageNumberTest);
+        // console.log('options.pageNumber',options.pageNumber);
+        // console.log('options.pageNumberTest',options.pageNumberTest);
+        options.pageNumber = options.pageNumberTest;
+        // console.log(options.genresId);
+        // console.log('после options.pageNumber',options.pageNumber);
+        // console.log('после options.pageNumberTest',options.pageNumberTest);
         showErrorText();
-        console.log(('пусто'));
-        setTimeout(hideErrorText, 2000)
+        // console.log(('пусто'));
+        setTimeout(hideErrorText, 2000);
         if (currentFetch === 'genres') {
-        ress= await discoverGenres()
+          ress = await discoverGenres();
         }
         if (currentFetch === 'tranding') {
-        ress= await fetchTrandingMovie()
+          ress = await fetchTrandingMovie();
         }
         if (currentFetch === 'year') {
-        ress= await discoverYear()
+          ress = await discoverYear();
         }
-        
       } else {
-       
         options.queryTest = formInput.value;
-        options.pageNumber = 1
-      
-      await onClickSearchSubmit(e);
-      // togglePainationAllButtons(ress);
+        options.pageNumber = 1;
+
+        await onClickSearchSubmit(e);
+        // togglePainationAllButtons(ress);
       }
-    
     }
     // ===== chek genres =====
     if (e.currentTarget === refs.genres) {
       options.pageNumber = 1;
-      options.pageNumberTest = 1
+      options.pageNumberTest = 1;
       // await showFetchLoader();
       toggleTrands(e.target.id);
       await onClickGenres(e);
@@ -169,7 +168,7 @@ async function checkFetchLink(e) {
     //==============topTrands =================
     if (e.target.id === 'topDay') {
       options.pageNumber = 1;
-      options.pageNumberTest = 1
+      options.pageNumberTest = 1;
       // await showFetchLoader()
       removeAllChekedGenres();
       toggleTrands(e.target.id);
@@ -184,7 +183,7 @@ async function checkFetchLink(e) {
       toggleTrands(e.target.id);
       await onClickTopWeekTrands(e);
     }
-    
+
     options.maxPage = ress.total_pages;
     if (ress.results.length !== 0) {
       localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
@@ -197,88 +196,80 @@ async function checkFetchLink(e) {
     togglePaginationBtn();
     togglePainationAllButtons(ress);
     modalOpenOnClick();
-    await hideFetchLoader()
-    
+    await hideFetchLoader();
   } catch (e) {
     console.log(e);
   }
 }
 
-
-async function onClickSearchSubmit(e) { 
-
+async function onClickSearchSubmit(e) {
   hideErrorText();
   //проверка отправка респонса с тестовым значением инпута
   const ressTest = await fetchPhotoTest();
   // console.log('resstest,', ressTest);
-  
+
   //проверка респонса на длинну массива
   if (ressTest.results.length === 0) {
-      showErrorText();
-      console.log(('пусто'));
-      setTimeout(hideErrorText, 2000)
-      options.pageNumber = options.pageNumberTest
-      currentFetchTest = 'search';
-      console.log('restest = 0')
-      formInput.value = ''
-      console.log('options.query',options.query)
-      console.log('options.queryTest',options.queryTest)
-      // options.query === ''
-      // console.log(options.query === '')
+    showErrorText();
+    // console.log(('пусто'));
+    setTimeout(hideErrorText, 2000);
+    options.pageNumber = options.pageNumberTest;
+    currentFetchTest = 'search';
+    // console.log('restest = 0')
+    formInput.value = '';
+    // console.log('options.query',options.query)
+    // console.log('options.queryTest',options.queryTest)
+    // options.query === ''
+    // console.log(options.query === '')
     //проверка респонса на длинну массива с пустым инпутом
-      if (options.query === '') {
-        console.log('query pysto aaaaaa')
-        console.log('currentFetchTest',currentFetchTest)
-        console.log('currentFetch', currentFetch)
-        if (currentFetch === 'genres') {
-          ress= await discoverGenres()
-        }
-        if (currentFetch === 'tranding') {
-          ress= await fetchTrandingMovie()
-        }
-        if (currentFetch === 'year') {
-          ress= await discoverYear()
-        }
-      
-      } else {
-        if (currentFetch === 'search') {
-          ress = await fetchPhoto()
-        }
-        // ress = await fetchPhoto()
-        if (currentFetch === 'genres') {
-          ress= await discoverGenres()
-        }
-        if (currentFetch === 'tranding') {
-          ress= await fetchTrandingMovie()
-        }
-        if (currentFetch === 'year') {
-          ress= await discoverYear()
-        }
-        // options.queryTest = ''
+    if (options.query === '') {
+      // console.log('query pysto aaaaaa')
+      // console.log('currentFetchTest',currentFetchTest)
+      // console.log('currentFetch', currentFetch)
+      if (currentFetch === 'genres') {
+        ress = await discoverGenres();
       }
-     
-    
+      if (currentFetch === 'tranding') {
+        ress = await fetchTrandingMovie();
+      }
+      if (currentFetch === 'year') {
+        ress = await discoverYear();
+      }
+    } else {
+      if (currentFetch === 'search') {
+        ress = await fetchPhoto();
+      }
+      // ress = await fetchPhoto()
+      if (currentFetch === 'genres') {
+        ress = await discoverGenres();
+      }
+      if (currentFetch === 'tranding') {
+        ress = await fetchTrandingMovie();
+      }
+      if (currentFetch === 'year') {
+        ress = await discoverYear();
+      }
+      // options.queryTest = ''
+    }
   } else {
-    // если все ок то записываем значение queryTest в query 
-    console.log('currentFetchДо',currentFetch);
-    console.log('currentFetchTestДо',currentFetchTest);
-    
-      currentFetch = 'search'
-      options.genresId = []
-      options.query = options.queryTest
-      removeAllChekedGenres();
-    ress = await fetchPhoto()
-    console.log(options.genresId);
-    console.log('currentFetchПосле',currentFetch);
-    console.log('currentFetchTestПосле',currentFetchTest);
-      
-  }
-  
-  console.log('search', ress);
-  console.log('currentFetch ', currentFetch);
-  console.log('query ', options.query);
-}
+    // если все ок то записываем значение queryTest в query
+    // console.log('currentFetchДо',currentFetch);
+    // console.log('currentFetchTestДо',currentFetchTest);
 
+    currentFetch = 'search';
+    options.genresId = [];
+    options.query = options.queryTest;
+    removeAllChekedGenres();
+    ress = await fetchPhoto();
+    // console.log(options.genresId);
+    // console.log('currentFetchПосле',currentFetch);
+    // console.log('currentFetchTestПосле',currentFetchTest);
+  }
+
+  // console.log('search', ress);
+  // console.log('currentFetch ', currentFetch);
+  // console.log('query ', options.query);
+}
 
 async function onClickGenres(e) {
   hideErrorText();
@@ -291,13 +282,12 @@ async function onClickGenres(e) {
     toggleYear(e.target.dataset.year);
   }
   ress = await discoverGenres();
-  console.log('genres', ress);
-  console.log('currentFetch ', currentFetch);
-  console.dir(e.target.dataset.year);
-  console.log(options.genresId);
-  console.log(options.yearId);
+  // console.log('genres', ress);
+  // console.log('currentFetch ', currentFetch);
+  // console.dir(e.target.dataset.year);
+  // console.log(options.genresId);
+  // console.log(options.yearId);
 }
-
 
 async function onClickTopDayTrands(e) {
   e.target.classList.toggle('btn_active');
@@ -305,25 +295,25 @@ async function onClickTopDayTrands(e) {
   options.trand = 'day';
   options.genresId = [];
   currentFetch = 'tranding';
-  console.log('topDay', options.trand);
+  // console.log('topDay', options.trand);
 
   ress = await fetchTrandingMovie();
-  console.log('topDay', ress);
-  console.log('currentFetch ', currentFetch);
+  // console.log('topDay', ress);
+  // console.log('currentFetch ', currentFetch);
 }
 async function onClickTopWeekTrands(e) {
   e.target.classList.toggle('btn_active');
   options.trand = 'week';
-  console.log('topWeek', options.trand);
+  // console.log('topWeek', options.trand);
   currentFetch = 'tranding';
 
   ress = await fetchTrandingMovie();
-  console.log('topWeek', ress);
-  console.log('currentFetch ', currentFetch);
+  // console.log('topWeek', ress);
+  // console.log('currentFetch ', currentFetch);
 }
 // ================== tranding Startpage ==================
 async function onLoadTranding() {
-  showFetchLoader()
+  showFetchLoader();
   ress = await fetchTrandingMovie();
   options.maxPage = ress.total_pages;
   galleryArrayMarkup(ress);
@@ -335,14 +325,14 @@ async function onLoadTranding() {
   togglePaginationBtn();
   removeAllChekedGenres();
   togglePainationAllButtons(ress);
-  
+
   if (ress.results.length !== 0) {
     localStorage.setItem('MoviesOnPage', JSON.stringify(ress));
   }
 
   // options.pageNumber += 1;
-  console.log(options.allGenresList);
-  await hideFetchLoader()
+  // console.log(options.allGenresList);
+  await hideFetchLoader();
   return await fetchTrandingMovie();
 }
 
@@ -355,18 +345,24 @@ function galleryArrayMarkup(array) {
 
                 <a class="gallery-list__card">
                     <div class="gallery-list__poster">
-                        <img class="gallery-list__img" src="${poster_path?'https://image.tmdb.org/t/p/w500'+poster_path:folder}" alt="${original_title}"  loading="lazy" />
+                        <img class="gallery-list__img" src="${
+                          poster_path ? 'https://image.tmdb.org/t/p/w500' + poster_path : folder
+                        }" alt="${original_title}"  loading="lazy" />
                     </div>
                     </div>
                     <div class="gallery-list__description">
                     <h2 class="gallery-list__titel">${original_title}</h2>
                     <div class="gallery-list__statics">
 
-                        <p class="gallery-list__text">${galleryGenresMarkup(genre_ids)?galleryGenresMarkup(genre_ids):'no information'} | <span class="gallery-list__text-aftertext">${new Date(
-        release_date,
-      ).getFullYear()?new Date(
-        release_date,
-      ).getFullYear():'no information'}</span> </p>
+                        <p class="gallery-list__text">${
+                          galleryGenresMarkup(genre_ids)
+                            ? galleryGenresMarkup(genre_ids)
+                            : 'no information'
+                        } | <span class="gallery-list__text-aftertext">${
+        new Date(release_date).getFullYear()
+          ? new Date(release_date).getFullYear()
+          : 'no information'
+      }</span> </p>
 
                         <span class="gallery-list__rating">${vote_average}</span>
                     </div>
@@ -378,17 +374,19 @@ function galleryArrayMarkup(array) {
     .join('');
   refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup);
 }
-console.log('genresId', options.genresId);
+// console.log('genresId', options.genresId);
 
-console.log('genresId', options.genresId);
-{/* <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "396" onError="this.src='../../images/folder.jpg'/> */}
+// console.log('genresId', options.genresId);
+{
+  /* <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${original_title}" width = "396" onError="this.src='../../images/folder.jpg'/> */
+}
 function posterFolder(poster) {
   if (poster === null) {
-    return `https://via.placeholder.com/550`
+    return `https://via.placeholder.com/550`;
     // return `https://via.placeholder.com/550`
     // return `https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg`
   }
-  return `https://image.tmdb.org/t/p/w500${poster}`
+  return `https://image.tmdb.org/t/p/w500${poster}`;
 }
 // =====================================Работаем с рейтингами ======================================================
 
@@ -398,4 +396,4 @@ function ratingAddIshidden() {
 }
 
 const ratings = document.querySelector('.gallery-list');
-console.log(ratings);
+// console.log(ratings);

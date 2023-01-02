@@ -1,5 +1,5 @@
 import { galleryArrayMarkup, ratingAddIshidden } from './gallery';
-import { modalOpenOnClick } from './modal'
+import { modalOpenOnClick } from './modal';
 
 import {
   markupPages,
@@ -18,7 +18,7 @@ const refs = {
   paginationList: document.querySelector('.pagination'),
   topTrands: document.querySelector('.top-trands'),
   filterEl: document.querySelector('.filter'),
-  slider: document.querySelector('.slider__section')
+  slider: document.querySelector('.slider__section'),
 };
 
 function homeMarkup() {
@@ -27,11 +27,11 @@ function homeMarkup() {
   refs.paginationList.style.display = 'flex';
   refs.genres.style.display = 'flex';
   refs.topTrands.style.display = 'flex';
-  refs.filterEl.classList.remove('hidden')
-  refs.slider.classList.remove('visually-hidden')
+  refs.filterEl.classList.remove('hidden');
+  refs.slider.classList.remove('visually-hidden');
   try {
     const ress = JSON.parse(localStorage.getItem('MoviesOnPage'));
-    console.log(ress)
+    // console.log(ress)
     galleryArrayMarkup(ress);
     markupPages(ress);
     ratingAddIshidden();
@@ -39,9 +39,8 @@ function homeMarkup() {
     hideLastPageBtn();
     togglePaginationBtn();
     togglePainationAllButtons(ress);
-    modalOpenOnClick()
+    modalOpenOnClick();
     localStorage.setItem('isActive', 'home');
-
   } catch (e) {
     console.log(e);
   }

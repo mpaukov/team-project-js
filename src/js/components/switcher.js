@@ -1,5 +1,5 @@
 const checkboxBtn = document.querySelector('#theme-switch-toggle');
-console.log(checkboxBtn);
+// console.log(checkboxBtn);
 const body = document.querySelector('body');
 const modal = document.querySelector('.modal-container');
 const footer = document.querySelector('.footer');
